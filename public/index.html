@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LED Slider</title>
+</head>
+<style>
+    input {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<body>
+    <input type="range" oninput="onInput(this.value)" id="onslider" value="0" max="11" min="1" step="1">
+    <input type="range" oninput="ledoff(this.value)" id="onslider" value="11" max="11" min="-4" step="2">
+
+    <a href="/off"><button>OFF</button></a>
+</body>
+<script>
+    var lastNum = 0;
+    let behaviour;
+    function onInput(value) {
+        if (lastNum < value) {
+            console.log("increasing");
+            behaviour = "incre";
+        } else {
+            console.log("decreasing");
+            behaviour = "decre";
+        }
+        lastNum = value;
+        console.log("onInput: " + value);
+
+        const options = {
+            method: "POST",
+            body: JSON.stringify({
+                behaviour: behaviour,
+                value: value
+            }),
+            headers: new Headers({ "Content-Type": "application/json" })
+        }
+
+        fetch('/getValues', options)
+            .then((response) => response.json())
+            .then((result) => {
+                console.log(result);
+            })
+            .catch(err => console.log(err));
+    }
+
+    function ledoff(value) {
+        const options = {
+            method: "POST",
+            body: JSON.stringify({
+                value: value
+            }),
+            headers: new Headers({ "Content-Type": "application/json" })
+        }
+
+        fetch('/offLeds', options)
+            .then((response) => response.json())
+            .then((result) => {
+                console.log(result);
+            })
+            .catch(err => console.log(err));
+    }
+</script>
+
+</html>

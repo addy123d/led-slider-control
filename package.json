@@ -1,0 +1,19 @@
+{
+  "name": "tempsensor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "dependencies": {
+    "etherport-client": "^0.1.4",
+    "express": "^4.17.1",
+    "johnny-five": "^2.0.0",
+    "keypress": "^0.2.1",
+    "ws": "^7.4.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aditya Chaudhary",
+  "license": "ISC"
+}
